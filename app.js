@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const config = require('./config')
+const { verifyToken } = require('./utils/index')
 
 const app = express();
 
@@ -14,11 +15,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const apiGoviewSysRouter = require('./routes/goview/sys');
-const apiGoviewProjectRouter = require('./routes/goview/project');
+const apiGoviewSysRouter = require('./routes/sys');
+const apiGoviewProjectRouter = require('./routes/project');
+const apiGoviewDataSourcetRouter = require('./routes/dataSource');
 
 app.use('/api/goview/sys', apiGoviewSysRouter);
 app.use('/api/goview/project', apiGoviewProjectRouter);
+app.use('/api/goview/dataSource', verifyToken, apiGoviewDataSourcetRouter);
 
 app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });

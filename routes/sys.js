@@ -1,9 +1,8 @@
 const express = require('express');
-const crypto = require('crypto');
 const jwt = require('jsonwebtoken')
-const config = require('../../config')
-const knex = require('../../utils/db');
-
+const config = require('../config')
+const knex = require('../utils/db');
+const { md5 } = require('../utils/index')
 const router = express.Router();
 
 /* GET users listing. */
@@ -47,7 +46,7 @@ router.post('/login', async function (req, res, next) {
 
 router.get('/getOssInfo', async function (req, res, next) {
     const bucketURL = req.protocol + '://' + req.hostname + ':' + config.port + "/" + config.uploadPath + '/'
-    res.send({ code: 200, data: { bucketURL } , msg: "返回成功"})
+    res.send({ code: 200, data: { bucketURL }, msg: "返回成功" })
 })
 
 router.get('/logout', async function (req, res, next) {
@@ -68,10 +67,5 @@ async function generateToken(user) {
 }
 
 
-async function md5(str) {
-    const hash = await crypto.createHash('md5');
-    hash.update(str);
-    return hash.digest('hex');
-}
 
 module.exports = router;

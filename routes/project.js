@@ -1,9 +1,9 @@
 const express = require('express');
 const multer = require('multer');
-const config = require('../../config')
-const { verifyToken } = require('../../utils/index')
+const config = require('../config')
+const { verifyToken } = require('../utils/index')
 
-const knex = require('../../utils/db');
+const knex = require('../utils/db');
 
 const router = express.Router();
 

@@ -1,5 +1,6 @@
 const config = require('../config')
 const jwt = require('jsonwebtoken')
+const crypto = require('crypto');
 
 // Middleware function to verify token
 async function verifyToken(req, res, next) {
@@ -17,7 +18,13 @@ async function verifyToken(req, res, next) {
     });
 }
 
+async function md5(str) {
+    const hash = await crypto.createHash('md5');
+    hash.update(str);
+    return hash.digest('hex');
+}
 
 module.exports = {
-    verifyToken
+    verifyToken,
+    md5
 }
