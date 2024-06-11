@@ -18,10 +18,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 const apiGoviewSysRouter = require('./routes/sys');
 const apiGoviewProjectRouter = require('./routes/project');
 const apiGoviewDataSourcetRouter = require('./routes/dataSource');
+const apiGoviewCustomComponentRouter = require('./routes/cusComponent');
 
 app.use('/api/goview/sys', apiGoviewSysRouter);
 app.use('/api/goview/project', apiGoviewProjectRouter);
 app.use('/api/goview/dataSource', verifyToken, apiGoviewDataSourcetRouter);
+app.use('/api/goview/cusComponent', verifyToken, apiGoviewCustomComponentRouter);
 
 app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
